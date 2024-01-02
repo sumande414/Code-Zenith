@@ -67,7 +67,7 @@ class _SignupPageState extends State<SignupPage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
-                                width: 190,
+                                width: 200,
                                 child: FormContainerWidget(
                                   controller: handle,
                                   hintText: "Codeforces Handle",
@@ -84,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
                               width: 10,
                             ),
                             Container(
-                              width: 150,
+                              width: 140,
                               height: 50,
                               child: ElevatedButton.icon(
                                 onPressed: () async {

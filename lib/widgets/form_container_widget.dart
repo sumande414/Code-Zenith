@@ -42,7 +42,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         borderRadius: BorderRadius.circular(10),
       ),
       child: TextFormField(onChanged: widget.onChanged,
-        style: const TextStyle(color: Colors.black),
+       // style: const TextStyle(color: Colors.black),
         controller: widget.controller,
         keyboardType: widget.inputType,
         key: widget.fieldKey,
@@ -50,7 +50,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
         onSaved: widget.onSaved,
         validator: widget.validator,
         onFieldSubmitted: widget.onFieldSubmitted,
-        decoration: InputDecoration(
+        decoration: InputDecoration(contentPadding: EdgeInsets.all(8),
           border: InputBorder.none,
           filled: false,
           hintText: widget.hintText,
