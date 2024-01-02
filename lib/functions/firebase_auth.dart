@@ -7,7 +7,7 @@ signup(String email, String password, String handle, String username) async {
       email: email,
       password: password,
     );
-    addUser(username, handle);
+    addUser(username,email, handle);
     signin(email, password);
   } on FirebaseAuthException catch (e) {
     if (e.code == 'weak-password') {

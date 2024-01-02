@@ -7,9 +7,9 @@ addFriend(String handle, String username) async {
   });
 }
 
-addUser(String username, String handle) async {
+addUser(String username,String email, String handle) async {
   await FirebaseFirestore.instance
-      .collection(username)
+      .collection(email)
       .doc('doc')
-      .set({'handle': handle, 'friends_list': []});
+      .set({'username':username,'handle': handle, 'friends_list': []});
 }
