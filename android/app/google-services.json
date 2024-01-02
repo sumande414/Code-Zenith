@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "976173368969",
+    "project_id": "friendz-code",
+    "storage_bucket": "friendz-code.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976173368969:android:91eb3b9e7e4f45843de858",
+        "android_client_info": {
+          "package_name": "com.example.friendz_code"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3h2uv72DYLen54BAHiP7qCAxMZNU8_As"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
