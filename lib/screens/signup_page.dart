@@ -3,6 +3,7 @@ import 'package:friendz_code/functions/firebase_auth.dart';
 import 'package:friendz_code/models/codeforce_model.dart';
 import 'package:friendz_code/widgets/form_container_widget.dart';
 import 'package:friendz_code/api/api.dart';
+import 'package:friendz_code/widgets/handle_input_with_validator.dart';
 import 'package:friendz_code/widgets/lookup_widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:google_fonts/google_fonts.dart';
@@ -63,77 +64,7 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 10),
                   login
                       ? Container()
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                                width: 200,
-                                child: FormContainerWidget(
-                                  controller: handle,
-                                  hintText: "Codeforces Handle",
-                                  onChanged: (str) {
-                                    isHandleValidated = false;
-                                  },
-                                  validator: (value) {
-                                    if (!isHandleValidated) {
-                                      return "Click on lookup and confirm";
-                                    }
-                                  },
-                                )),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              width: 140,
-                              height: 50,
-                              child: ElevatedButton.icon(
-                                onPressed: () async {
-                                  try {
-                                    user = api.fetchHandle(handle.text);
-                                  } catch (e) {
-                                    Fluttertoast.showToast(
-                                        msg:
-                                            "Problem fetching handle. Try again");
-                                  }
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) => AlertDialog(
-                                      actions: [
-                                        FutureBuilder<Codeforces?>(
-                                            future: user,
-                                            builder: (context, snapshot) {
-                                              print(
-                                                  "Snapshot data: ${snapshot.data}");
-                                              if (snapshot.hasData) {
-                                                return Column(
-                                                  children: [
-                                                    LookupCard(
-                                                        user: snapshot
-                                                            .data!.results[0]),
-                                                    ElevatedButton(
-                                                        onPressed: () {
-                                                          isHandleValidated =
-                                                              true;
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: Text("Confirm"))
-                                                  ],
-                                                );
-                                              } else {
-                                                return CircularProgressIndicator();
-                                              }
-                                            })
-                                      ],
-                                    ),
-                                  );
-                                },
-                                icon: Icon(Icons.search),
-                                label: Text("Lookup"),
-                              ),
-                            )
-                          ],
-                        ),
+                      : HandleInputWithValidator(handle: handle, scale: 1,),
                   SizedBox(height: 10),
                   Container(
                       width: 350,
@@ -164,9 +95,9 @@ class _SignupPageState extends State<SignupPage> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         login
-                            ? signin(email.text, password.text)
-                            : signup(email.text, password.text, handle.text,
-                                username.text);
+                            ? signin(email:email.text,password: password.text)
+                            : signup(email:email.text,password: password.text,handle: handle.text,
+                                username: username.text);
                       }
                     },
                     child: Container(

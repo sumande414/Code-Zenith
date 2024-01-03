@@ -1,7 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:friendz_code/functions/database_functions.dart';
 import 'package:friendz_code/widgets/coder_card.dart';
 import 'package:friendz_code/widgets/form_container_widget.dart';
+import 'package:friendz_code/widgets/handle_input_with_validator.dart';
+import 'package:friendz_code/models/codeforce_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,20 +14,55 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future OpenDialog() => showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-            title: Text("Add Friend"),
-            actions: [
-              FormContainerWidget(
-                hintText: "Codeforces handle",
-              ),
-            ],
-          ));
+  TextEditingController handle = TextEditingController();
+  TextEditingController nickname = TextEditingController();
+  late Codeforces user;
+
+  final _formKey = GlobalKey<FormState>();
+
+  OpenDialog() => showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Add Friend"),
+          actions: [
+            Form(
+              key: _formKey,
+              child: Column(children: [
+                FormContainerWidget(
+                    hintText: "Nickname",
+                    controller: nickname,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Nickname cannot be empty";
+                      }
+                    }),
+                SizedBox(
+                  height: 10,
+                ),
+                HandleInputWithValidator(
+                  handle: handle,
+                  scale: 0.8,
+                )
+              ]),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    addFriend(
+                        email: FirebaseAuth.instance.currentUser!.email!,
+                        handle: handle.text,
+                        nickname: nickname.text);
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text("Confirm"))
+          ],
+        ),
+      );
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -47,7 +85,7 @@ class _HomePageState extends State<HomePage> {
           child: CircleAvatar(
             backgroundColor: Color.fromARGB(255, 78, 68, 68),
             backgroundImage: NetworkImage(
-              "",
+              "https://userpic.codeforces.org/3206650/title/57cf6b76464101e.jpg",
             ),
           ),
         ),
@@ -76,7 +114,10 @@ class _HomePageState extends State<HomePage> {
           OpenDialog();
         },
         backgroundColor: Colors.green,
-        label: Text("Add Friends"),
+        label: Text(
+          "Add Friends",
+          style: TextStyle(color: Colors.white),
+        ),
         icon: Icon(
           Icons.add,
           color: Colors.white,

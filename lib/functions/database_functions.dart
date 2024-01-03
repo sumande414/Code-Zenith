@@ -1,15 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-List<String> friend_list = [];
-addFriend(String handle, String username) async {
-  await FirebaseFirestore.instance.collection(username).doc('doc').set({
-    'friends_list': ['']
+
+addFriend({
+  required String email,
+  required String handle,
+  required String nickname
+}) async {
+  await FirebaseFirestore.instance.collection('users').doc(email).collection('friends').doc(handle).set({
+    'nickname':nickname,
+    'handle':handle,
   });
 }
 
-addUser(String username,String email, String handle) async {
+addUser(
+    {required String username,
+    required String email,
+    required String handle}) async {
   await FirebaseFirestore.instance
-      .collection(email)
-      .doc('doc')
-      .set({'username':username,'handle': handle, 'friends_list': []});
+      .collection('users')
+      .doc(email)
+      .set({'username': username, 'handle': handle});
 }
