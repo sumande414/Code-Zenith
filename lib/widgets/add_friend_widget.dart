@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:friendz_code/functions/database_functions.dart';
 import 'package:friendz_code/widgets/form_container_widget.dart';
 import 'package:friendz_code/widgets/handle_input_with_validator.dart';
@@ -52,6 +53,11 @@ class _AddFriendWizardState extends State<AddFriendWizard> {
                         email: FirebaseAuth.instance.currentUser!.email!,
                         handle: handle.text,
                         nickname: nickname.text);
+                    Fluttertoast.showToast(
+                        msg: "Friend Added", toastLength: Toast.LENGTH_SHORT);
+                    Fluttertoast.showToast(
+                        msg:
+                            "Swipe Down to Refresh. It may take 2-3 seconds to show up");
                     Navigator.pop(context);
                   }
                 },
