@@ -51,7 +51,7 @@ class HandleInputWithValidator extends StatelessWidget {
                         future: user,
                         builder: (context, snapshot) {
                           print("Snapshot data: ${snapshot.data}");
-                          if (snapshot.hasData) {
+                          if (snapshot.hasData && snapshot.data!.results.isNotEmpty) {
                             return Column(
                               children: [
                                 LookupCard(user: snapshot.data!.results[0]),
