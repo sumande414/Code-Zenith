@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:friendz_code/models/participated_contests.dart';
 import 'package:friendz_code/screens/dashboard_screen.dart';
 import 'package:friendz_code/screens/friends_screen.dart';
 import 'package:friendz_code/widgets/add_friend_widget.dart';
@@ -21,9 +22,11 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
   String? username;
   bool loading = true;
   Future<Codeforces>? user;
+  Future<ParticipatedContests>? participatedContests;
 
   @override
   void initState() {
+    FriendsScreen.dbAndApiCall();
     FirebaseFirestore.instance
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.email)
@@ -34,11 +37,15 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
         username = value['username'];
         if (handle != null && username != null) {
           user = api.fetchHandle(handle);
+          participatedContests = api.fetchParticipatedContests(handle);
           setState(() {
             loading = false;
           });
         }
-      } while (handle == null && username == null && user == null);
+      } while (handle == null &&
+          username == null &&
+          user == null &&
+          participatedContests == null);
     });
 
     super.initState();
@@ -50,7 +57,7 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
     super.dispose();
   }
 
-  int pageIndex = 1;
+  int pageIndex = 0;
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +113,8 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
         ),
         body: [
           //Home Page
-          Dashboard(user: user, username: username),
+          Dashboard(
+              participatedContests: participatedContests, username: username),
 
           //Friends Page
           FriendsScreen()
