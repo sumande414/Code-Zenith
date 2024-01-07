@@ -23,7 +23,10 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData(useMaterial3: true),
+        theme: ThemeData(
+          navigationBarTheme: NavigationBarThemeData(labelTextStyle: MaterialStateProperty.all(TextStyle(color: Colors.white))),
+          useMaterial3: true
+          ),
         debugShowCheckedModeBanner: false,
         home: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),

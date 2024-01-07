@@ -40,6 +40,11 @@ class HandleInputWithValidator extends StatelessWidget {
           width: 150 * scale,
           height: 50,
           child: ElevatedButton.icon(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 42, 5, 71)),
+              iconColor: MaterialStateProperty.all(Colors.white),
+              
+            ),
             onPressed: () {
               user = api.fetchHandle(handle.text);
 
@@ -71,8 +76,11 @@ class HandleInputWithValidator extends StatelessWidget {
                 ),
               );
             },
+            
             icon: Icon(Icons.search),
-            label: Text("Lookup"),
+            label: Text("Lookup",style: TextStyle(
+              color: Colors.white
+            ),),
           ),
         )
       ],

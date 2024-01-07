@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class ParticipatedContests {
   ParticipatedContests({required this.status, required this.results});
 
@@ -20,6 +22,7 @@ class Result {
     required this.ratingUpdateTimeSeconds,
     required this.oldRating,
     required this.newRating,
+    required this.ratingChange
   });
 
   int? contestId;
@@ -29,6 +32,7 @@ class Result {
   int? ratingUpdateTimeSeconds;
   int? oldRating;
   int? newRating;
+  int? ratingChange;
 
   factory Result.fromJson(Map<String, dynamic> data) => Result(
       contestId: data['contestId'],
@@ -37,5 +41,6 @@ class Result {
       rank: data['rank'],
       ratingUpdateTimeSeconds: data['ratingUpdateTimeSeconds'],
       oldRating: data['oldRating'],
-      newRating: data['newRating']);
+      newRating: data['newRating'],
+      ratingChange:data['newRating']-data['oldRating']);
 }

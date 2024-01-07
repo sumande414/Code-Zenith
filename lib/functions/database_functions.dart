@@ -1,35 +1,49 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 addFriend(
     {required String email,
     required String handle,
     required String nickname}) async {
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(email)
-      .collection('friends')
-      .doc(handle)
-      .set({
-    'nickname': nickname,
-    'handle': handle,
-  });
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .collection('friends')
+        .doc(handle)
+        .set({
+      'nickname': nickname,
+      'handle': handle,
+    });
+  } catch (e) {
+    Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
+  }
 }
 
 addUser(
     {required String username,
     required String email,
     required String handle}) async {
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(email)
-      .set({'username': username, 'handle': handle});
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .set({'username': username, 'handle': handle});
+  } catch (e) {
+    Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
+  }
+  ;
 }
 
 removeFriend({required String email, required String handle}) async {
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(email)
-      .collection('friends')
-      .doc(handle)
-      .delete();
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .collection('friends')
+        .doc(handle)
+        .delete();
+  } catch (e) {
+    Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
+  }
 }

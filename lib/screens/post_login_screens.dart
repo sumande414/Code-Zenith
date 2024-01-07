@@ -61,11 +61,15 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color.fromARGB(255, 42, 5, 71),
         bottomNavigationBar: NavigationBar(
+
+          backgroundColor: Colors.transparent,
+          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           selectedIndex: pageIndex,
           destinations: [
-            NavigationDestination(icon: Icon(Icons.home), label: "Dashboard"),
-            NavigationDestination(icon: Icon(Icons.people), label: "Friends")
+            NavigationDestination(icon: Icon(Icons.home,color:pageIndex==0?Colors.black:Colors.white), label: "Dashboard"),
+            NavigationDestination(icon: Icon(Icons.people,color:pageIndex==1?Colors.black:Colors.white), label: "Friends")
           ],
           onDestinationSelected: (value) {
             setState(() {
@@ -74,11 +78,12 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
           },
         ),
         appBar: AppBar(
+          
           title: const Center(
               child: Text(
             "CodeZenith",
             style: TextStyle(
-                color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+                color: Color.fromARGB(255, 255, 255, 255), fontSize: 25, fontWeight: FontWeight.bold),
           )),
           leading: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -97,7 +102,7 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
                       return Center(child: const CircularProgressIndicator());
                     }
                   })),
-          backgroundColor: Color.fromARGB(255, 251, 251, 251),
+          backgroundColor: Colors.transparent,
           elevation: 0,
           actions: [
             IconButton(
@@ -107,7 +112,7 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
                 },
                 icon: const Icon(
                   Icons.logout,
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 255, 255, 255),
                 ))
           ],
         ),
@@ -117,8 +122,8 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
               participatedContests: participatedContests, username: username),
 
           //Friends Page
-          FriendsScreen()
+          FriendsScreen(userHandle:handle)
         ][pageIndex],
-        floatingActionButton: pageIndex == 1 ? AddFriendWizard() : null);
+        floatingActionButton: pageIndex == 1 ? AddFriendWizard() : null,);
   }
 }

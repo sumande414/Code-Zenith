@@ -17,6 +17,6 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return ParticipatedContestsCard(participatedContests: widget.participatedContests);
+    return ParticipatedContestsCard(participatedContests: widget.participatedContests, username: widget.username);
   }
 }

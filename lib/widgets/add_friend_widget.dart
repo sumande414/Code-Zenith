@@ -71,14 +71,14 @@ class _AddFriendWizardState extends State<AddFriendWizard> {
       onPressed: () {
         OpenDialog();
       },
-      backgroundColor: Colors.green,
+      backgroundColor: Color.fromARGB(255, 255, 187, 0),
       label: Text(
         "Add Friends",
-        style: TextStyle(color: Colors.white),
+        style: TextStyle(color: Colors.black),
       ),
       icon: Icon(
         Icons.add,
-        color: Colors.white,
+        color: Colors.black,
       ),
     );
   }

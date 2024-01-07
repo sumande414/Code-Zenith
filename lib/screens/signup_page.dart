@@ -27,13 +27,13 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 93, 176, 117),
+      backgroundColor: const Color.fromARGB(255, 42, 5, 71),
       body: Column(
         children: [
           Spacer(),
           Container(
             decoration: const BoxDecoration(
-                color: Colors.white,
+                color: Color.fromARGB(255, 255, 255, 255),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40))),
@@ -104,7 +104,7 @@ class _SignupPageState extends State<SignupPage> {
                       height: 40,
                       width: 350,
                       decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 93, 176, 117),
+                          color: Color.fromARGB(255, 42, 5, 71),
                           borderRadius: BorderRadius.circular(30)),
                       child: Center(
                           child: Text(

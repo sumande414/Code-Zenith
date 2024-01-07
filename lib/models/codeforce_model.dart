@@ -42,6 +42,7 @@ class Result {
   int? maxRating;
   int? registrationTimeSeconds;
   String? maxRank;
+  String? nickname;
 
   factory Result.fromJson(Map<String, dynamic> data) => Result(
       country: data['country'],

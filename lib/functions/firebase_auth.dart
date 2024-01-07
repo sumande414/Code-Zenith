@@ -13,6 +13,7 @@ signup(
       password: password,
     );
     addUser(username: username, email: email, handle: handle);
+    addFriend(email: email, handle: handle, nickname: "You");
     signin(email: email, password: password);
   } on FirebaseAuthException catch (e) {
     Fluttertoast.showToast(msg: e.message.toString());
@@ -25,7 +26,6 @@ signin({required String email, required String password}) async {
 
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email, password: password);
-
   } on FirebaseAuthException catch (e) {
     Fluttertoast.showToast(msg: e.message.toString());
   }
