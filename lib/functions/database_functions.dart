@@ -43,6 +43,7 @@ removeFriend({required String email, required String handle}) async {
         .collection('friends')
         .doc(handle)
         .delete();
+    Fluttertoast.showToast(msg: "Success");
   } catch (e) {
     Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
   }

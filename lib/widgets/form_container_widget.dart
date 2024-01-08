@@ -12,6 +12,7 @@ class FormContainerWidget extends StatefulWidget {
   final ValueChanged<String>? onFieldSubmitted;
   final TextInputType? inputType;
   final void Function(String)? onChanged;
+  final Iterable<String>? autofillHints;
 
   const FormContainerWidget(
       {this.controller,
@@ -24,7 +25,8 @@ class FormContainerWidget extends StatefulWidget {
       this.validator,
       this.onFieldSubmitted,
       this.inputType,
-      this.onChanged});
+      this.onChanged,
+      this.autofillHints});
 
   @override
   _FormContainerWidgetState createState() => new _FormContainerWidgetState();
@@ -45,6 +47,7 @@ class _FormContainerWidgetState extends State<FormContainerWidget> {
        // style: const TextStyle(color: Colors.black),
         controller: widget.controller,
         keyboardType: widget.inputType,
+        autofillHints: widget.autofillHints,
         key: widget.fieldKey,
         obscureText: widget.isPasswordField == true ? _obscureText : false,
         onSaved: widget.onSaved,

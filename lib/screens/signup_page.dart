@@ -25,6 +25,15 @@ class _SignupPageState extends State<SignupPage> {
   late Future<Codeforces?> user;
   bool isHandleValidated = false;
   @override
+  void dispose() {
+    // TODO: implement dispose
+    username.dispose();
+    handle.dispose;
+    email.dispose;
+    password.dispose();
+    super.dispose();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 42, 5, 71),
@@ -54,6 +63,7 @@ class _SignupPageState extends State<SignupPage> {
                           width: 350,
                           child: FormContainerWidget(
                             controller: username,
+                            autofillHints: [AutofillHints.newUsername],
                             hintText: "Username",
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -64,12 +74,16 @@ class _SignupPageState extends State<SignupPage> {
                   SizedBox(height: 10),
                   login
                       ? Container()
-                      : HandleInputWithValidator(handle: handle, scale: 1,),
+                      : HandleInputWithValidator(
+                          handle: handle,
+                          scale: 1,
+                        ),
                   SizedBox(height: 10),
                   Container(
                       width: 350,
                       child: FormContainerWidget(
                         controller: email,
+                        autofillHints: [AutofillHints.email],
                         hintText: "Email",
                         validator: (value) {
                           if (value == null || !value.contains('@')) {
@@ -83,6 +97,7 @@ class _SignupPageState extends State<SignupPage> {
                       child: FormContainerWidget(
                         controller: password,
                         hintText: "Password",
+                        autofillHints: [AutofillHints.password],
                         isPasswordField: true,
                         validator: (value) {
                           if (value == null || value.length < 6) {
@@ -95,8 +110,11 @@ class _SignupPageState extends State<SignupPage> {
                     onTap: () {
                       if (_formKey.currentState!.validate()) {
                         login
-                            ? signin(email:email.text,password: password.text)
-                            : signup(email:email.text,password: password.text,handle: handle.text,
+                            ? signin(email: email.text, password: password.text)
+                            : signup(
+                                email: email.text,
+                                password: password.text,
+                                handle: handle.text,
                                 username: username.text);
                       }
                     },

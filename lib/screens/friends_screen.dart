@@ -58,7 +58,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CoderInfoScreen(coder: friendsList[index], handle:friendsList[index].handle!)));
+                            builder: (context) => CoderInfoScreen(coder: friendsList[index], handle:friendsList[index].handle!, userHandle:widget.userHandle)));
                   },
                   tileColor: widget.userHandle == friendsList[index].handle
                       ? Color.fromARGB(216, 255, 172, 7)

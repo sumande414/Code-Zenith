@@ -57,7 +57,7 @@ class _AddFriendWizardState extends State<AddFriendWizard> {
                         msg: "Friend Added", toastLength: Toast.LENGTH_SHORT);
                     Fluttertoast.showToast(
                         msg:
-                            "Swipe Down to Refresh. It may take 2-3 seconds to show up");
+                            "Swipe Down to Refresh");
                     Navigator.pop(context);
                   }
                 },

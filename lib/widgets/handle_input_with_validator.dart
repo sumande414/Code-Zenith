@@ -13,6 +13,7 @@ class HandleInputWithValidator extends StatelessWidget {
   final TextEditingController handle;
   bool isHandleValidated = false;
   late Future<Codeforces?> user;
+  
 
   @override
   Widget build(BuildContext context) {

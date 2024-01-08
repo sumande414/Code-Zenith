@@ -10,9 +10,10 @@ import 'package:friendz_code/widgets/participated_contest_card.dart';
 import '../models/participated_contests.dart';
 
 class CoderInfoScreen extends StatefulWidget {
-  const CoderInfoScreen({super.key, required this.coder, required this.handle});
+  const CoderInfoScreen({super.key, required this.coder, required this.handle, required this.userHandle});
   final cf.Result coder;
   final String handle;
+  final userHandle;
 
   @override
   State<CoderInfoScreen> createState() => _CoderInfoScreenState();
@@ -39,7 +40,7 @@ class _CoderInfoScreenState extends State<CoderInfoScreen> {
                 onPressed: () {
                   Fluttertoast.showToast(
                       msg:
-                          "This feature is not ready yet and will be included in fututre builds",
+                          "This feature is not ready yet and will be included in future builds",
                       toastLength: Toast.LENGTH_LONG);
                 },
                 icon: Icon(
@@ -47,14 +48,16 @@ class _CoderInfoScreenState extends State<CoderInfoScreen> {
                   color: Colors.yellow,
                 )),
             IconButton(
-                onPressed: () {
+                onPressed: (widget.handle != widget.userHandle)? () {
+                  Fluttertoast.showToast(msg: "Removing ${widget.handle}");
+
                   removeFriend(
                       email: FirebaseAuth.instance.currentUser!.email!,
                       handle: widget.handle);
-                },
+                }:null,
                 icon: Icon(
                   Icons.delete,
-                  color: Colors.red,
+                  color:(widget.handle != widget.userHandle)? Colors.red:Colors.grey,
                 )),
           ],
           iconTheme: IconThemeData(color: Colors.white),
@@ -71,53 +74,54 @@ class _CoderInfoScreenState extends State<CoderInfoScreen> {
           child: Column(
             children: [
               Container(
-                height: 200,
+                height: 150,
                 child: Card(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
-                      Container(
-                        child: SingleChildScrollView(
-                          child: Container(
-                            width: 250,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Handle : ${widget.coder.handle}",
-                                    style: coderInfoTextStyle,
-                                  ),
-                                  Text("Rank : ${widget.coder.rank}",
-                                      style: coderInfoTextStyle),
-                                  Text("Rating : ${widget.coder.rating}",
-                                      style: coderInfoTextStyle),
-                                  Text(
-                                      "organisation : ${widget.coder.organisation}",
-                                      style: coderInfoTextStyle),
-                                  Text("City : ${widget.coder.city}",
-                                      style: coderInfoTextStyle),
-                                  Text("Country : ${widget.coder.country}",
-                                      style: coderInfoTextStyle),
-                                  Text("Max Rank : ${widget.coder.maxRank}",
-                                      style: coderInfoTextStyle),
-                                  Text("maxRating : ${widget.coder.maxRating}",
-                                      style: coderInfoTextStyle),
-                                  Text(
-                                      "Registration time : ${DateTime.fromMillisecondsSinceEpoch(widget.coder.registrationTimeSeconds! * 1000)}",
-                                      style: coderInfoTextStyle),
-                                  Text(
-                                      "Last Online : ${DateTime.fromMillisecondsSinceEpoch(widget.coder.lastOnlineTimeSeconds! * 1000)}",
-                                      style: coderInfoTextStyle)
-                                ]),
-                          ),
+                      SingleChildScrollView(
+                        child: SizedBox(
+                          width: 240,
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Handle : ${widget.coder.handle}",
+                                  style: coderInfoTextStyle,
+                                ),
+                                Text("Rank : ${widget.coder.rank}",
+                                    style: coderInfoTextStyle),
+                                Text("Rating : ${widget.coder.rating}",
+                                    style: coderInfoTextStyle),
+                                Text(
+                                    "organisation : ${widget.coder.organisation}",
+                                    style: coderInfoTextStyle),
+                                Text("City : ${widget.coder.city}",
+                                    style: coderInfoTextStyle),
+                                Text("Country : ${widget.coder.country}",
+                                    style: coderInfoTextStyle),
+                                Text("Max Rank : ${widget.coder.maxRank}",
+                                    style: coderInfoTextStyle),
+                                Text("maxRating : ${widget.coder.maxRating}",
+                                    style: coderInfoTextStyle),
+                                Text(
+                                    "Registration time : ${DateTime.fromMillisecondsSinceEpoch(widget.coder.registrationTimeSeconds! * 1000)}",
+                                    style: coderInfoTextStyle),
+                                Text(
+                                    "Last Online : ${DateTime.fromMillisecondsSinceEpoch(widget.coder.lastOnlineTimeSeconds! * 1000)}",
+                                    style: coderInfoTextStyle)
+                              ]),
                         ),
                       ),
-                      Container(
-                          width: 120,
+                      Spacer(),
+                      SafeArea(
                           child: ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: Image.network(widget.coder.titlePhoto!)))
+                              child: Image.network(
+                                widget.coder.titlePhoto!,
+                                width: 95,
+                              )))
                     ],
                   ),
                 )),
