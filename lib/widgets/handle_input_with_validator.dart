@@ -7,10 +7,10 @@ import 'lookup_widget.dart';
 
 class HandleInputWithValidator extends StatelessWidget {
   HandleInputWithValidator(
-      {super.key, required this.handle, required this.scale});
+      {super.key, required this.handleController, required this.scale});
 
   double scale;
-  final TextEditingController handle;
+  final TextEditingController handleController;
   bool isHandleValidated = false;
   late Future<Codeforces?> user;
   
@@ -23,7 +23,7 @@ class HandleInputWithValidator extends StatelessWidget {
         Container(
             width: 190 * scale,
             child: FormContainerWidget(
-              controller: handle,
+              controller: handleController,
               hintText: (scale < 1) ? "CF Handle" : "Codeforces ID",
               onChanged: (str) {
                 isHandleValidated = false;
@@ -47,7 +47,7 @@ class HandleInputWithValidator extends StatelessWidget {
               
             ),
             onPressed: () {
-              user = api.fetchHandle(handle.text);
+              user = api.fetchHandle(handleController.text);
 
               showDialog(
                 context: context,

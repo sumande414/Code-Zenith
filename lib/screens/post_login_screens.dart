@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:friendz_code/models/participated_contests.dart';
 import 'package:friendz_code/screens/dashboard_screen.dart';
 import 'package:friendz_code/screens/friends_screen.dart';
+import 'package:friendz_code/screens/profile_screen.dart';
 import 'package:friendz_code/widgets/add_friend_widget.dart';
 import 'package:friendz_code/widgets/coder_card.dart';
 import 'package:friendz_code/models/codeforce_model.dart';
@@ -62,68 +63,83 @@ class _PostLoginScreensState extends State<PostLoginScreens> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 42, 5, 71),
-        bottomNavigationBar: NavigationBar(
-
-          backgroundColor: Colors.transparent,
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-          selectedIndex: pageIndex,
-          destinations: [
-            NavigationDestination(icon: Icon(Icons.home,color:pageIndex==0?Colors.black:Colors.white), label: "Dashboard"),
-            NavigationDestination(icon: Icon(Icons.people,color:pageIndex==1?Colors.black:Colors.white), label: "Friends")
-          ],
-          onDestinationSelected: (value) {
-            setState(() {
-              pageIndex = value;
-            });
-          },
-        ),
-        appBar: AppBar(
-          
-          title: const Center(
-              child: Text(
-            "CodeZenith",
-            style: TextStyle(
-                color: Color.fromARGB(255, 255, 255, 255), fontSize: 25, fontWeight: FontWeight.bold),
-          )),
-          leading: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FutureBuilder<Codeforces?>(
-                  future: user,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      var currentUser = snapshot.data!.results[0];
-                      return CircleAvatar(
+      bottomNavigationBar: NavigationBar(
+        backgroundColor: Colors.transparent,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        selectedIndex: pageIndex,
+        destinations: [
+          NavigationDestination(
+              icon: Icon(Icons.home,
+                  color: pageIndex == 0 ? Colors.black : Colors.white),
+              label: "Dashboard"),
+          NavigationDestination(
+              icon: Icon(Icons.people,
+                  color: pageIndex == 1 ? Colors.black : Colors.white),
+              label: "Friends")
+        ],
+        onDestinationSelected: (value) {
+          setState(() {
+            pageIndex = value;
+          });
+        },
+      ),
+      appBar: AppBar(
+        title: const Center(
+            child: Text(
+          "CodeZenith",
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 255, 255),
+              fontSize: 25,
+              fontWeight: FontWeight.bold),
+        )),
+        leading: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FutureBuilder<Codeforces?>(
+                future: user,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    var currentUser = snapshot.data!.results[0];
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileScreen(handle:handle!, username: username!)));
+                      },
+                      child: CircleAvatar(
                         backgroundColor: const Color.fromARGB(255, 78, 68, 68),
                         backgroundImage: NetworkImage(
                           currentUser.avatar,
                         ),
-                      );
-                    } else {
-                      return Center(child: const CircularProgressIndicator());
-                    }
-                  })),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          actions: [
-            IconButton(
-                onPressed: () async {
-                  Fluttertoast.showToast(msg: "Logging out...");
-                  await FirebaseAuth.instance.signOut();
-                },
-                icon: const Icon(
-                  Icons.logout,
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ))
-          ],
-        ),
-        body: [
-          //Home Page
-          Dashboard(
-              participatedContests: participatedContests, username: username),
+                      ),
+                    );
+                  } else {
+                    return Center(child: const CircularProgressIndicator());
+                  }
+                })),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                Fluttertoast.showToast(msg: "Logging out...");
+                await FirebaseAuth.instance.signOut();
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ))
+        ],
+      ),
+      body: [
+        //Home Page
+        Dashboard(
+            participatedContests: participatedContests, username: username),
 
-          //Friends Page
-          FriendsScreen(userHandle:handle)
-        ][pageIndex],
-        floatingActionButton: pageIndex == 1 ? AddFriendWizard() : null,);
+        //Friends Page
+        FriendsScreen(userHandle: handle)
+      ][pageIndex],
+      floatingActionButton: pageIndex == 1 ? AddFriendWizard() : null,
+    );
   }
 }

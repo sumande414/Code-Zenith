@@ -32,7 +32,6 @@ addUser(
   } catch (e) {
     Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
   }
-  ;
 }
 
 removeFriend({required String email, required String handle}) async {
@@ -44,6 +43,25 @@ removeFriend({required String email, required String handle}) async {
         .doc(handle)
         .delete();
     Fluttertoast.showToast(msg: "Success");
+  } catch (e) {
+    Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
+  }
+}
+
+deleteAllData({required String email}) async {
+  try {
+    await FirebaseFirestore.instance.collection('users').doc(email).delete();
+  } catch (e) {
+    Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
+  }
+}
+
+editUserHandle({required String newHandle, required String email}) async {
+  try {
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(email)
+        .update({'handle': newHandle});
   } catch (e) {
     Fluttertoast.showToast(msg: "Firestore Error: ${e.toString()}");
   }

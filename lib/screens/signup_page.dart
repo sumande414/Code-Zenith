@@ -75,7 +75,7 @@ class _SignupPageState extends State<SignupPage> {
                   login
                       ? Container()
                       : HandleInputWithValidator(
-                          handle: handle,
+                          handleController: handle,
                           scale: 1,
                         ),
                   SizedBox(height: 10),

@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:friendz_code/functions/firebase_auth.dart';
+import 'package:friendz_code/screens/email_verification_screen.dart';
 import 'package:friendz_code/screens/post_login_screens.dart';
 import 'package:friendz_code/screens/signup_page.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +14,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,systemNavigationBarColor: Colors.transparent
-  ));
+      statusBarColor: Colors.transparent,
+      systemNavigationBarColor: Colors.transparent));
   runApp(const MainApp());
 }
 
@@ -24,15 +26,21 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         theme: ThemeData(
-          navigationBarTheme: NavigationBarThemeData(labelTextStyle: MaterialStateProperty.all(TextStyle(color: Colors.white))),
-          useMaterial3: true
-          ),
+            navigationBarTheme: NavigationBarThemeData(
+                labelTextStyle:
+                    MaterialStateProperty.all(TextStyle(color: Colors.white))),
+            useMaterial3: true),
         debugShowCheckedModeBanner: false,
         home: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
+          stream: FirebaseAuth.instance.userChanges(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return PostLoginScreens();
+              if (snapshot.data!.emailVerified==true) {
+                return PostLoginScreens();
+              } else {
+                verifyEmail();
+                return EmailVerificationScreen();
+              }
             } else {
               return SignupPage();
             }

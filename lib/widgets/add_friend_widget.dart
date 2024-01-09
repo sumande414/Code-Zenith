@@ -40,7 +40,7 @@ class _AddFriendWizardState extends State<AddFriendWizard> {
                   height: 10,
                 ),
                 HandleInputWithValidator(
-                  handle: handle,
+                  handleController: handle,
                   scale: 0.8,
                 )
               ]),
