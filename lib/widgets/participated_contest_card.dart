@@ -103,7 +103,7 @@ class _CoderCardState extends State<ParticipatedContestsCard> {
                                                               fontSize: 15),
                                                         ),
                                                         Text(
-                                                            "${DateTime.fromMillisecondsSinceEpoch(contests[index].ratingUpdateTimeSeconds! * 1000)}")
+                                                            "${DateTime.fromMillisecondsSinceEpoch(contests[index].ratingUpdateTimeSeconds! * 1000).toLocal()}")
                                                       ],
                                                     ),
                                                     Spacer(),
