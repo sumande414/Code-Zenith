@@ -1,7 +1,7 @@
 # friendz_code
 
 An app to track codeforces status.
-<img src="https://github.com/sumande414/friendz_code/assets/112795900/ba79d922-db3a-4ef7-aa74-b68faf1adc4b" width="100" height="100">
+<img src="https://github.com/sumande414/friendz_code/assets/112795900/ba79d922-db3a-4ef7-aa74-b68faf1adc4b" width="720" height="1080">
 ![sign-in](https://github.com/sumande414/friendz_code/assets/112795900/a9af4a51-2d44-4eb1-8d0d-457e2002fd64)
 ![Dashboard](https://github.com/sumande414/friendz_code/assets/112795900/6dd10a26-1e99-4f88-ab96-49acad295706)
 ![friends-screen](https://github.com/sumande414/friendz_code/assets/112795900/a3378a01-7166-4fc4-b988-8b9fc86682a0)
