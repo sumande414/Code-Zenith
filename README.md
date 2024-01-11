@@ -1,3 +1,3 @@
 # friendz_code
 
-A new Flutter project.
+An app to track codeforces status.
