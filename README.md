@@ -1,4 +1,4 @@
-# friendz_code
+# Code Zenith formerly friendz_code
 
 An app to track codeforces status.
 
